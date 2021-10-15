@@ -1,5 +1,6 @@
 <?php
 include ('connection.php');
+date_default_timezone_set('Asia/singapore');
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +49,7 @@ if (isset($_POST['submit'])) {
 
     $purpose_name = $_POST['purpose_id'];
     $remarks = $_POST['remarks'];
+    $dateCreated = date("d-m-y h:i:a ");
 
     if(empty($_POST[$purpose_name])){
         echo "Please enter a Purpose";
@@ -64,7 +66,7 @@ if (isset($_POST['submit'])) {
     
 
     //write sql query
-    $insert = "INSERT INTO queuenum ('purpose_name', 'Remarks') VALUES ('$purpose_name', '$remarks')";
+    $sql = "INSERT INTO `purpose`(`purpose_name`, `datetime_created`, `Remarks`) VALUES ('$purpose_name', '$dateCreated','$remarks')";
     
     // execute the query
     $result = $conn->query($insert);
