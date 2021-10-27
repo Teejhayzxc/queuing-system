@@ -103,11 +103,11 @@ CREATE TABLE `queuenumber` (
 --
 
 INSERT INTO `queuenumber` (`id`, `dept_id`, `purpose_id`, `queuing_num`, `remarks`) VALUES
-(1, 0, 2, '', 'penge'),
-(2, 0, 2, '', 'Penge'),
-(3, 0, 3, '', 'tite'),
-(4, 0, 2, '', 'penge ulet'),
-(5, 0, 1, '', 'tangina mo');
+(1, 0, 2, '', 'wiws'),
+(2, 0, 2, '', 'wiws'),
+(3, 0, 3, '', 'wiws'),
+(4, 0, 2, '', 'wiws'),
+(5, 0, 1, '', 'wiws');
 
 -- --------------------------------------------------------
 
