@@ -1,5 +1,6 @@
 <?php
 include('connection.php'); 
+date_default_timezone_set('Asia/Manila');
 ?>
 
 <!DOCTYPE html>
@@ -36,12 +37,14 @@ include('connection.php');
 
 <?php
   if(isset($_POST['submitbtn'])) {
-    $purpose = $_POST['purpose'];
+    $purpose = $_POST['purpose'] ;
     $dept_id = $_POST['dept'];
     $remarks = $_POST['remarks'];
+    $dateCreated = date("d-m-y h:i:a ");
+
     
 
-    $insert = "INSERT INTO queuenumber (purpose_id, dept_id, remarks) VALUE ('$purpose','$dept_id' ,'$remarks')"; 
+    $insert = "INSERT INTO queuenumber (purpose_id, dept_id, remarks, datetime_created) VALUE ('$purpose','$dept_id' ,'$remarks','$dateCreated')"; 
     
     if(mysqli_query($conn, $insert)) {
       echo "Success!";

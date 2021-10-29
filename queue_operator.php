@@ -53,9 +53,9 @@ $get_num = mysqli_query($conn, $get_queue); ?>
         $id = $_GET['id'];
         $delete = "DELETE FROM queuing_number WHERE id = '$id'";
         if(mysqli_query($conn, $delete)){
-            echo "Di ko na alam";
+            echo "Delete succesfully";
         }else{
-            echo "di gumana";
+            echo "error";
         }
     }else{
         header("location: operator_home.php");
