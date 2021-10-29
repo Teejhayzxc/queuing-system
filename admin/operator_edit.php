@@ -69,8 +69,8 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
         } else if(empty($fname) && empty($lname) && empty($username) && empty($password) && empty($dept)){
             echo "Fields must not left blank";
         }else{
-            $update = "UPDATE user SET first_name = $fname, last_name = $lname,
-            username = $username, password = $password, dept_id = $dept";
+            $update = "UPDATE user SET first_name = '$fname', last_name = '$lname',
+            username = '$username', password = '$password', dept_id = '$dept' WHERE id = $id";
             $query_update = mysqli_query($conn, $update);
             if($query_update) {
                 header("location: operator.php");

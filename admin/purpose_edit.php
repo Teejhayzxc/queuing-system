@@ -59,7 +59,7 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
             echo "Must fill this field";
             exit();
         }else{
-            $update = "UPDATE purposes SET purpose_name = '$purpose', dept_id = '$dept'";
+            $update = "UPDATE purposes SET purpose_name = '$purpose', dept_id = '$dept' WHERE id = $id";
             $query = mysqli_query($conn, $update);
             
             if($query){

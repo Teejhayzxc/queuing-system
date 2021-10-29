@@ -25,10 +25,10 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
         
         if(mysqli_num_rows($show_dept) > 0) {
             while($row = mysqli_fetch_array($show_dept)){ ?>
-                <form action="#" method="POST">
+                <form action="" method="POST">
                     <label for="">Enter a department name : </label> <br>
                     <input type="text" name="deptname" value="<?php echo $row['departments'] ?>">
-                    <input type="submit" name="adddept" value="Update">
+                    <input type="submit" name="submit" value="Update">
                 </form>
     <?php }
         }
@@ -40,13 +40,13 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
 <!-- process ng update -->
 <?php 
     if(isset($_POST['submit'])) {
-        $dept = $_POST['dept_name'];
+        $dept = $_POST['deptname'];
 
         if(empty($dept)){
             echo "Must fill this field";
             exit();
         }else{
-            $update = "UPDATE department SET departments = '$dept'";
+            $update = "UPDATE department SET departments = '$dept' WHERE id = $id";
             $query = mysqli_query($conn, $update);
             
             if($query){
