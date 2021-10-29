@@ -1,10 +1,5 @@
 <?php
-session_start();
-include "connection.php";
-if(empty($_SESSION['username']) && empty($_SESSION['password'])){
-    header("Location:index.php");
-    exit();
-}
+    require "connection.php";
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +11,7 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     <title>Document</title>
 </head>
 <body>
-    <a href="logout.php">Logout</a>
-    <?php 
-    $user = $_SESSION['username'];
-    echo 'Hello ' . $user; 
-    ?>
+<a href="logout.php">Logout</a>
 <?php
 $get_queue = "SELECT queuenumber.id, queuenumber.purpose_id, queuenumber.remarks,
 purposes.purpose_name, purposes.dept_id
@@ -28,7 +19,7 @@ FROM queuenumber
 LEFT JOIN purposes ON purposes.id = queuenumber.purpose_id";
 $get_num = mysqli_query($conn, $get_queue); ?>
 
-<table class="table">
+<table>
     <thead>
     <tr>
     <th>Purpose</th>
@@ -43,9 +34,10 @@ $get_num = mysqli_query($conn, $get_queue); ?>
 ?>
 <tbody>
 <tr>
+    <td><?php echo $row['id']?></td>
     <td><?php echo $row['purpose_name']?> </td>
     <td><?php echo $row['remarks']?> </td>
-    <td><a href="operator_home.php?id=<?php $row['id']?>">Next</a></td>
+    <td><a href=".php?id=<?php $row['id']?>">Next</a></td>
 </tr>
 </tbody>  
 <?php
@@ -56,3 +48,16 @@ $get_num = mysqli_query($conn, $get_queue); ?>
 </body>
 </html>
 
+<?php 
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        $delete = "DELETE FROM queuing_number WHERE id = '$id'";
+        if(mysqli_query($conn, $delete)){
+            echo "Di ko na alam";
+        }else{
+            echo "di gumana";
+        }
+    }else{
+        header("location: operator_home.php");
+    }
+?>

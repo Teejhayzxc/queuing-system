@@ -1,7 +1,14 @@
-<?php 
+<?php
+include "../connection.php";
 session_start();
-session_destroy();
-unset($_SESSION['username']);
-
-echo "<script> window.location.href='index.php'</script>";
+if(empty($_SESSION['username']) && empty($_SESSION['password'])){
+	header("Location:index.php");
+	exit();
+}
+if (isset($_SESSION['username']) && isset($_SESSION['password'])){
+	session_unset();
+	session_destroy();
+	header("location:index.php");
+	exit();
+}
 ?>

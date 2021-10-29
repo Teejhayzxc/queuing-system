@@ -1,6 +1,10 @@
 <?php 
 session_start();
 include "../connection.php";
+if(empty($_SESSION['username']) && empty($_SESSION['password'])){
+    header("Location:operator_login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,26 +12,27 @@ include "../connection.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>Document</title>
 </head>
 <body>  
 <a href="admin.php">Back</a>
+<div class="container">
     <?php 
     $query_users = "SELECT user.id, user.first_name, user.last_name, user.dept_id,
-    department.id, department.departments 
+    department.departments 
     FROM user 
-    LEFT JOIN department ON user.dept_id = department.id 
-    ORDER BY user.id ASC";   
+    LEFT JOIN department ON user.dept_id = department.id";   
     $get_users = mysqli_query($conn, $query_users);
     if(mysqli_num_rows($get_users) > 0 ){?>
-    <table>
-        <thead>
+    <table class="table table-hover text-center">
+        <thead class="bg-dark text-white ">
         <tr>
             <th>Department</th>
-            <th>Department ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Actions</th>
+            <th></th>
         </tr>
     </thead>
         <?php
@@ -36,11 +41,13 @@ include "../connection.php";
         <tbody>
         <tr> 
             <td><?php echo $row['departments']?></td>
-            <td><?php echo $row['dept_id']?></td>
             <td><?php echo $row['first_name']?></td>
             <td><?php echo $row['last_name']?></td>
-            <td><a href="">Update</a></td>
-            <td><a href="">Delete</a></td>
+            <td>
+                <a class="btn btn-success" href="operator_edit.php?edit=<?php echo $row['id'] ?>">Edit</a>
+                <a class="btn btn-danger" href="operator.php?delete=<?php echo $row['id'] ?>">Delete</a>
+            </td>
+            <td></td>
         </tr>
     </tbody>
     <?php } ?>
@@ -64,18 +71,24 @@ include "../connection.php";
         $query = mysqli_query($conn, $sql);
         if(mysqli_num_rows($query)>0) { ?>
         <select name="dept">
-        <?php while($row = mysqli_fetch_array($query)){ ?> 
-            <option value="<?php echo $row['id']?>"><?php echo $row['departments'] ?></option>
+            <option value="">Select departments</option>
+        <?php 
+        while($row = mysqli_fetch_array($query)){
+            $dept_id = $row['id'];
+            $dept_name = $row['departments'];
+            echo "<option value = '$dept_id'>$dept_name</option>"
+            ?> 
         <?php } ?>
         </select>
         <?php }?> 
     <input type="submit" name="addOperators" value="submit">
 </form>
+</div>
 </body>
 </html>
 
+<!-- process para sa pag-add ng users -->
 <?php 
-
 if(isset($_POST['addOperators'])){
     $fname = $_POST['first_name'];
     $lname = $_POST['last_name'];
@@ -88,8 +101,23 @@ if(isset($_POST['addOperators'])){
     
     if(mysqli_query($conn, $insert)){
         echo "Success";
+        header('location:operator.php');
     }else{
         echo "hende success";
     }
 }
+?>
+
+<!-- delete  -->
+<?php 
+    if(isset($_GET['delete'])){
+        $id = $_GET['delete'];
+        $delete = "DELETE FROM user WHERE id = $id";
+        if (mysqli_query($conn, $delete)){
+            echo 'deleted';
+            header('location:operator.php');
+        }else{
+            echo "Error" . $delete . "<br>" . mysqli_error($conn);
+        }
+    }
 ?>

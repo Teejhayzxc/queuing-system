@@ -24,7 +24,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])){
           header("location:admin.php");
           exit();
         }else{
-          $error = "Credentials not found";
+          echo "User does not exist";
         }
       }
     }

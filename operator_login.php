@@ -3,34 +3,36 @@ include "connection.php";
 session_start();
 
 if (isset($_SESSION['username']) && isset($_SESSION['password'])){
-    header("location:index.php");
-  }
-    if(isset($_POST['login'])){
-      $username = $_POST['username'];
-      $password = $_POST['password'];
-      
-      if(empty($_POST['username']) && empty($_POST['password'])){
-        $error = "please input username & password";
-      }
-      else if(empty($_POST['username'])){
-        $error = "please input username";
-  
-      }
-      else if(empty($_POST['password'])){
-        $error = "please input password";
+  header("location:index.php");
+}
+  if(isset($_POST['login'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
+    if(empty($_POST['username']) && empty($_POST['password'])){
+      $error = "please input username & password";
+    }
+    else if(empty($_POST['username'])){
+      $error = "please input username";
+
+    }
+    else if(empty($_POST['password'])){
+      $error = "please input password";
+    }else{
+      $sql_users= "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+      $query_users = mysqli_query($conn, $sql_users);
+      $result = mysqli_num_rows($query_users);
+      if($result == 1){
+        $_SESSION['username'] = $username;
+        $_SESSION['password'] = $password;
+        header("location:operator_home.php");
+        exit();
       }else{
-        $sql_users= "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
-        $query_users = mysqli_query($conn, $sql_users);
-        if(mysqli_num_rows($query_users) > 0){
-          $_SESSION['username'] = $username;
-          $_SESSION['password'] = $password;
-          header("location:operator_home.php");
-          exit();
-        }else{
-          echo "Credentials not found";
-        }
+        echo "User does not exist";
       }
     }
+  }
+
 ?>
 
 <!DOCTYPE html>

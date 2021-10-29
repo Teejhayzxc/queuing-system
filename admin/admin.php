@@ -1,6 +1,10 @@
 <?php
 session_start();
 include "../connection.php";
+if(empty($_SESSION['username']) && empty($_SESSION['password'])){
+    header("Location:admin_login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
