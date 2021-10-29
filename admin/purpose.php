@@ -81,7 +81,7 @@ if(isset($_POST['addpurpose'])){
         header('location:purpose.php');
     }else{
         echo "di pumasok";
-    }
+    }   echo "may balat sa pwet"
 }
 ?>
 

@@ -22,3 +22,4 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     <a href="logout.php">Logout</a>
 </body>
 </html>
+
