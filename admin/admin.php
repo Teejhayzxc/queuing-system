@@ -18,3 +18,4 @@ include "../connection.php";
     <a href="logout.php">Logout</a>
 </body>
 </html>
+
