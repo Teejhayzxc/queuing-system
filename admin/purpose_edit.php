@@ -38,7 +38,7 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
                         <option value="<?php echo $row1['id']?>"><?php echo $row1['departments'] ?></option>
                         <?php } ?>
                         </select>
-                    <?php }?> 
+                <?php }?> 
                     <br>
                     <br>
                     <input type="submit" name="submit" value="Update">

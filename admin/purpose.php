@@ -32,6 +32,7 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
             <tr>
                 <th colspan="2">Purpose</th>
                 <th>Department</th>
+                <th>Department</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -40,6 +41,7 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
                 <tr>
                     <td colspan="2"><?php echo $row['purpose_name']?></td>
                     <td><?php echo $row['departments']?></td>
+                    <td><?php echo $row['dept_id']?></td>
                     <td class="text-center"><a class="btn btn-success" href="purpose_edit.php?edit=<?php echo $row['id']?>">Edit</a>
                     <a class="btn btn-danger" href="purpose.php?delete=<?php echo $row['id']?>">Delete</a></td>
                 </tr>
