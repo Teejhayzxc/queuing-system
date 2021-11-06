@@ -54,7 +54,7 @@ $get_num = mysqli_query($conn, $get_queue); ?>
 ?>   
 </div>
 </div>
-
+<div class="container">
 <?php
     $get_queue = "SELECT queuenumber.id, queuenumber.purpose_id, queuenumber.remarks, queuenumber.queue_status,
     purposes.purpose_name, purposes.dept_id
@@ -62,13 +62,12 @@ $get_num = mysqli_query($conn, $get_queue); ?>
     LEFT JOIN purposes ON purposes.id = queuenumber.purpose_id 
     WHERE dept_id = $dept AND queuenumber.queue_status = 'Queuing'";
     $get_num = mysqli_query($conn, $get_queue); ?>
-<table class="table">
+<table class="table text-center">
     <thead class="bg-dark text-white">
         <tr>
             <th>ID</th>
             <th>Purpose</th>
             <th>Remarks</th>
-            <th> Actions </th>
         </tr>
     </thead>
 <?php if(mysqli_num_rows($get_num)>0) {
@@ -78,7 +77,6 @@ $get_num = mysqli_query($conn, $get_queue); ?>
             <td><?php echo $row['id']?></td>
             <td><?php echo $row['purpose_name']?></td>
             <td><?php echo $row['remarks']?> </td>
-            <td><a href="operator_home.php?Next=<?php $row['id']?>">Next</a></td>
         </tr>
     </tbody>  
     <?php
@@ -118,7 +116,7 @@ $get_num = mysqli_query($conn, $get_queue); ?>
     }
     ?>    
 </table>
-
+</div>
 </body>
 </html>
 
