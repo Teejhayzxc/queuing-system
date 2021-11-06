@@ -41,12 +41,13 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
 <?php 
     if(isset($_POST['submit'])) {
         $dept = $_POST['deptname'];
+        $deptUpdate = date("dd-mm-yyyy h:i:s");
 
         if(empty($dept)){
             echo "Must fill this field";
             exit();
         }else{
-            $update = "UPDATE department SET departments = '$dept' WHERE id = $id";
+            $update = "UPDATE department SET departments = '$dept', datetime_updated = '$deptUpdate' WHERE id = $id ";
             $query = mysqli_query($conn, $update);
             
             if($query){

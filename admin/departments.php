@@ -13,6 +13,7 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -26,6 +27,8 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
         <thead class="bg-dark text-white">
             <tr>
                 <th>Department</th>
+                <th>Date Added</th>
+                <th>Date Updated</th>
                 <th colspan="2">Actions</th>
             </tr>
         </thead>
@@ -33,6 +36,8 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
         <tbody>
             <tr>
                 <td><?php echo $row['departments'] ?></td>  
+                <td><?php echo $row['datetime_created'] ?></td>  
+                <td><?php echo $row['datetime_updated'] ?></td>  
                 <td><a class="btn btn-success" href="dept_edit.php?edit=<?php echo $row['id']?>">Edit</a>
                 <a class="btn btn-danger" href="departments.php?delete=<?php echo $row['id']?>">Delete</a></td>  
             </tr>
@@ -56,10 +61,20 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
 <?php
 if(isset($_POST['adddept'])){
     $deptname = $_POST['deptname'];
-    
-    $insert = "INSERT INTO department (departments) VALUES ('$deptname')";
+    $dateCreated = date("dd-mm-yyyy h:i:s");
+
+    $insert = "INSERT INTO department (departments, datetime_created) VALUES ('$deptname', '$dateCreated')";
     if(mysqli_query($conn, $insert)){
-        header('location:departments.php');
+        echo "<script> 
+        swal({
+            title: 'Department Added!',
+            text: 'The item is successfully added.',
+            icon: 'success',
+            button: 'Nice',
+        }).then(function(){
+            window.location.href = 'departments.php'
+        });
+        </script>";
     }else{
         echo "Failed to add";
     }
@@ -72,9 +87,16 @@ if(isset($_POST['adddept'])){
         $id = $_GET['delete'];
         $delete = "DELETE FROM department WHERE id = $id";
         if(mysqli_query($conn, $delete)){
-            echo 'deleted';
-            header('location:departments.php');
-            exit();
+            echo "<script> 
+            swal({
+                title: 'Deleted Successfully',
+                text: 'The item is successfully removed from this field',
+                icon: 'success',
+                button: 'Awesome!',
+            }).then(function(){
+                window.location.href = 'departments.php'
+            });
+            </script>";
         }else{
             echo "Error" . $delete . "<br>" . mysqli_error($conn);
         }
