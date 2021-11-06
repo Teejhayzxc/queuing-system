@@ -16,42 +16,42 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
 </head>
 <body>
     <!-- reading ng data na ieedit -->
-    <?php
-    if(isset($_GET['edit'])){
-        $id = $_GET['edit'];
-        // query to para sa showing ng data ni user
-        $sql = "SELECT * from user WHERE id = $id";
-        $user_query = mysqli_query($conn, $sql);
-            if(mysqli_num_rows($user_query)>0) {
-                while($users = mysqli_fetch_array($user_query)){ ?>
-                <form action="" method="POST">
-                    <label for="">First name</label><br>
-                    <input type="text" name="first_name" value="<?php echo $users['first_name'] ?>"><br><br>
-                    <label for="">Last name</label><br>
-                    <input type="text" name="last_name" value="<?php echo $users['last_name'] ?>"><br><br>
-                    <label for="">Username</label><br>
-                    <input type="text" name="username" value="<?php echo $users['username'] ?>"><br><br>
-                    <label for="">Password</label><br>
-                    <input type="password" name="password"><br><br>
-                <!-- another query para sa departments -->
-                <?php $sql = "SELECT * FROM department";
-                $query = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($query)>0) { ?>
-                <select name="dept">
-                    <option value="">Select department</option>
-                <?php while($row = mysqli_fetch_array($query)){
-                    $dept_id = $row['id'];
-                    $dept_name = $row['departments'];
-                    echo "<option value = '$dept_id'>$dept_name</option>"
-                    ?> 
-                <?php } ?>
-                </select>
-                <?php }?> 
-                <input type="submit" name="update" value="Update">
-            </form>
-    <?php }
-        }
+<?php
+if(isset($_GET['edit'])){
+    $id = $_GET['edit'];
+    // query to para sa showing ng data ni user
+    $sql = "SELECT * from user WHERE id = $id";
+    $user_query = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($user_query)>0) {
+            while($users = mysqli_fetch_array($user_query)){ ?>
+            <form action="" method="POST">
+                <label for="">First name</label><br>
+                <input type="text" name="first_name" value="<?php echo $users['first_name'] ?>"><br><br>
+                <label for="">Last name</label><br>
+                <input type="text" name="last_name" value="<?php echo $users['last_name'] ?>"><br><br>
+                <label for="">Username</label><br>
+                <input type="text" name="username" value="<?php echo $users['username'] ?>"><br><br>
+                <label for="">Password</label><br>
+                <input type="password" name="password"><br><br>
+            <!-- another query para sa departments -->
+            <?php $sql = "SELECT * FROM department";
+            $query = mysqli_query($conn, $sql);
+            if(mysqli_num_rows($query)>0) { ?>
+            <select name="dept">
+                <option value="">Select department</option>
+            <?php while($row = mysqli_fetch_array($query)){
+                $dept_id = $row['id'];
+                $dept_name = $row['departments'];
+                echo "<option value = '$dept_id'>$dept_name</option>"
+                ?> 
+            <?php } ?>
+            </select>
+            <?php }?> 
+            <input type="submit" name="update" value="Update">
+        </form>
+<?php }
     }
+}
     ?> 
 </body>
 </html>
