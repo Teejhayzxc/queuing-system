@@ -1,6 +1,6 @@
 <?php
 include('connection.php'); 
-date_default_timezone_set('Asia/Manila');
+
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,6 @@ date_default_timezone_set('Asia/Manila');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -19,15 +18,15 @@ date_default_timezone_set('Asia/Manila');
     $get_purpose = mysqli_query($conn,$query);
     if(mysqli_num_rows($get_purpose)>0) { ?>
     <form action="" method="POST">
-      <input type="hidden" name="dept" value="<?php $row['dept_id'] ?>">
       <select name="purpose">
+        <option value="">Your purpose of attending</option>
         <?php while($row = mysqli_fetch_array($get_purpose)){ ?> 
         <option value="<?php echo $row['id']?>"><?php echo $row['purpose_name']?></option> 
         <?php } ?>
       </select> 
-      
   <br>
   <textarea name="remarks" id="" cols="30" rows="10" placeholder="Say something..."></textarea>
+  <input type="hidden" value="Queuing" name="status">
   <br>
   <input type="submit" name="submitbtn">
 </form>
@@ -38,13 +37,10 @@ date_default_timezone_set('Asia/Manila');
 <?php
   if(isset($_POST['submitbtn'])) {
     $purpose = $_POST['purpose'] ;
-    $dept_id = $_POST['dept'];
     $remarks = $_POST['remarks'];
-    $dateCreated = date("d-m-y h:i:a ");
+    $status = $_POST['status'];
 
-    
-
-    $insert = "INSERT INTO queuenumber (purpose_id, dept_id, remarks, datetime_created) VALUE ('$purpose','$dept_id' ,'$remarks','$dateCreated')"; 
+    $insert = "INSERT INTO queuenumber (purpose_id, queue_status, remarks) VALUE ('$purpose','$status', '$remarks')"; 
     
     if(mysqli_query($conn, $insert)) {
       echo "Success!";
