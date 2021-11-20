@@ -1,5 +1,5 @@
 <?php
-include('connection.php'); 
+include "connection.php"; 
 
 ?>
 
@@ -32,9 +32,6 @@ include('connection.php');
             <div class="col-lg-12">
             <label for="colFormLabel">Username</label>
             <input type="text" id="validationCustom05" class="form-control form-control mb-3" name="username" id="colFormLabelLg">
-            <div class="invalid-feedback">
-              Enter your fucking username
-            </div>
             </div>
             <div class="col-lg-12">
             <label for="colFormLabel">Password</label>
