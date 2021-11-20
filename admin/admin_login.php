@@ -36,16 +36,32 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>Document</title>
 </head>
-<body>
-    <form action="" method="POST">
-        <label for="">Username</label>
-        <input type="text" name="username">
-        <label for="">Password</label>
-        <input type="password" name="password">
-        <input type="submit" name="login">
-    </form>
+<body style="background-color: rgba(0,0,0,0.6);">
+  <div class="container" style="display: grid; place-items:center;">
+    <div class="card border border-dark" style="margin-top:10em;">
+      <div class="card-header bg-dark">
+        <h1 class="text-white text-center">Admin</h1>
+      </div>
+      <div class="card-body p-5">
+        <form action="" method="POST">
+        <div class="form-group row">
+          <label for="colFormLabel" class="col-lg-2 col-form-label col-form-label">Username</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control form-control mb-3" name="username" id="colFormLabelLg">
+          </div>
+          <label for="colFormLabel" class="col-lg-2 col-form-label col-form-label">Password</label>
+          <div class="col-lg-10">
+            <input type="password" class="form-control form-control mb-5" name="password" id="colFormLabelLg">
+          </div>
+        </div>
+        <input type="submit" class="btn btn-dark w-100" name="login">
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 
