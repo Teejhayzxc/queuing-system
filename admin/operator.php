@@ -58,10 +58,16 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
 <br>
 <br>
 <form action="" method="POST">
-    <label for="">First name</label><br>
-    <input type="text" name="first_name"><br><br>
-    <label for="">Last name</label><br>
-    <input type="text" name="last_name"><br><br>
+    <div class="row">
+        <div class="col-lg-6">
+            <label for="">First name</label><br>
+            <input class="form-control" type="text" name="first_name"><br><br>
+        </div>
+        <div class="col-lg-6">
+            <label for="">Last name</label><br>
+            <input class="form-control" type="text" name="last_name"><br><br>
+        </div>
+    </div>
     <label for="">Username</label><br>
     <input type="text" name="username"><br><br>
     <label for="">Password</label><br>
