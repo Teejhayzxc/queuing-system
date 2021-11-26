@@ -26,9 +26,12 @@ include "includes/header.php";
             <a class="btn btn-danger" href="departments.php?delete=<?php echo $row['id']?>">Delete</a></td>  
         </tr>
         <?php }?>
-    </tbody>
-    <?php } ?>
+    </tbody> 
     </table>
+    <?php }else{
+        echo "No departments added yet";
+    } ?>
+   
     </div>
 <div class="container">
     <form action="#" method="POST" class="needs-validation" novalidate>

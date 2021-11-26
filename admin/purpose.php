@@ -33,9 +33,12 @@ include "includes/header.php";
                 </tr>
                 <?php }?>
             </tbody>
-        <?php } ?> 
+        <?php }else{
+            echo "No Data Found";
+        } ?> 
     </table>
     </div>
+    <div class="container">
 <form action="" method="POST"> 
     <label for="">Enter a Purpose name : </label> <br>
     <input type="text" name="purpose">
@@ -54,7 +57,7 @@ include "includes/header.php";
 
     <input type="submit" name="addpurpose" value="Add">
 </form>
-
+</div>
 </div>
 <?php
 include "includes/footer.php";

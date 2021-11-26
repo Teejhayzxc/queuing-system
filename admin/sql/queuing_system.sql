@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2021 at 08:40 AM
+-- Generation Time: Nov 26, 2021 at 07:07 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -49,8 +49,8 @@ INSERT INTO `administrator` (`id`, `username`, `password`) VALUES
 CREATE TABLE `department` (
   `id` int(11) NOT NULL,
   `departments` char(12) NOT NULL,
-  `datetime_created` datetime NOT NULL,
-  `datetime_updated` datetime NOT NULL
+  `datetime_created` datetime DEFAULT NULL,
+  `datetime_updated` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -79,9 +79,24 @@ CREATE TABLE `queuenumber` (
   `queuing_num` varchar(12) NOT NULL,
   `queue_status` char(11) NOT NULL,
   `remarks` text NOT NULL,
-  `datetime_created` datetime DEFAULT NULL,
-  `datetime_updated` datetime DEFAULT NULL
+  `date_created` varchar(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `queuenumber`
+--
+
+INSERT INTO `queuenumber` (`id`, `purpose_id`, `queuing_num`, `queue_status`, `remarks`, `date_created`) VALUES
+(53, 20, '', 'Done', '', '20211126'),
+(54, 20, '', 'Done', 'tryyy', '20211126'),
+(55, 20, '', 'Done', '', '20211126'),
+(56, 20, '', 'Done', '', '20211126'),
+(57, 20, '', 'Done', '', '20211126'),
+(58, 20, '', 'Done', '', '20211126'),
+(59, 20, '', 'Done', '', '20211126'),
+(60, 20, '', 'Done', '', '20211126'),
+(61, 20, '', 'Done', '', '20211126'),
+(62, 20, '', 'Done', '', '20211126');
 
 -- --------------------------------------------------------
 
@@ -150,25 +165,25 @@ ALTER TABLE `administrator`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `purposes`
 --
 ALTER TABLE `purposes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `queuenumber`
 --
 ALTER TABLE `queuenumber`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

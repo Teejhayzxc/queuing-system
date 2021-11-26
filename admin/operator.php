@@ -37,7 +37,9 @@ include "includes/header.php";
     </tbody>
     <?php } ?>
 </table>
-<?php } ?>
+<?php }else{
+    echo "No Employees Added Yet";
+} ?>
 <div class="container">
 <form action="" method="POST" class="row needs-validation" novalidate>
     <div class="col-lg-6">
