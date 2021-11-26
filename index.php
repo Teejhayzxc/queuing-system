@@ -19,7 +19,7 @@ if(!empty($_SESSION['username']) && empty($_SESSION['password'])){
 <body style="background:var(--bs-light);">
   <div class="collapse" id="navbarToggleExternalContent">
   <div class="bg-success p-4">
-  <a class="text-white" style="text-decoration: none; font-family:var(--poppins); font-weight:600;"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Log-in as Operator</a>
+  <a class="text-white" style="text-decoration: none; font-family:var(--poppins); font-weight:600; cursor:pointer;"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Log-in as Operator</a>
   <!-- modal login start -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -67,7 +67,7 @@ if(!empty($_SESSION['username']) && empty($_SESSION['password'])){
       </div>
       </span>
       <?php }else{ ?>
-        <p class="alert alert-danger">Error : No Data Found for Department/s</p>
+        <p class="alert alert-danger text-center">Error : No Data Found for Department/s</p>
         <span class="d-flex justify-content-center mt-5">
         <div class="row text-center">
         <div class="col-12">

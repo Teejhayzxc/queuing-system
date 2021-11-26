@@ -83,12 +83,18 @@ include "includes/header.php";
         <div class="invalid-feedback">
             Must select a department.
         </div>
+        <div class="col-lg-12 d-flex justify-content-center" style="padding-top: 2em;">
+                <input type="submit" class="btn btn-success" name="addOperators" value="Submit"> 
+            </div>
+        <?php }else{ ?>
+            </div>
+            <div class="col-lg-12  d-flex justify-content-center" style="padding-top: 2em;">
+                <span class="alert alert-danger text-center"> Error : No Data Found For Department</span>
+            </div>
+            <div class="col-lg-12 d-flex justify-content-center" style="padding-top: 2em;">
+                <input type="submit" class="btn btn-success disabled" name="addOperators" value="Submit"> 
+            </div>
         <?php }?> 
-        
-    </div>
-    
-    <div class="col-lg-12 d-flex justify-content-center" style="padding-top: 2em;">
-    <input type="submit" class="btn btn-success" name="addOperators" value="Submit"> 
     </div>
 </form>
 </div>
