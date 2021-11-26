@@ -45,7 +45,7 @@ include "includes/header.php";
         <div class="invalid-feedback">
             The field is empty.
         </div>
-        <select class="form-select w-25 mb-3" name="dept">
+        <select class="form-select w-25 mb-3" name="dept" required>
         <option value="">Select Department</option>
         <?php 
         $sql_department = "SELECT * FROM department";
@@ -55,6 +55,9 @@ include "includes/header.php";
         <option value="<?php echo $row1['id']?>"><?php echo $row1['departments'] ?></option>
         <?php } ?>
         </select>
+        <div class="invalid-feedback">
+            Must select a department.
+        </div>
         <input class="btn btn-success" type="submit" name="addpurpose" value="Add">
         <?php }else {?> 
         <input class="btn btn-success disabled" type="submit" name="addpurpose" value="Add">

@@ -56,6 +56,13 @@ include "includes/header.php";
             Please provide a Last Name.
         </div>
     </div>
+    <div class="col-lg-6" style="padding-top: 2em;" >
+        <label for="validationCustom05" class="form-label">Set Username</label>
+        <input class="form-control" type="text" name="username" required>
+        <div class="invalid-feedback">
+            Please provide a username.
+        </div>
+    </div>
     <div class="col-lg-6" style="padding-top: 2em;">
     <label for="validationCustom05" class="form-label">Set Password</label>
         <input class="form-control" type="password" name="password" required>
@@ -83,9 +90,10 @@ include "includes/header.php";
         <div class="invalid-feedback">
             Must select a department.
         </div>
-        <div class="col-lg-12 d-flex justify-content-center" style="padding-top: 2em;">
-                <input type="submit" class="btn btn-success" name="addOperators" value="Submit"> 
-            </div>
+    </div>
+    <div class="col-lg-12 d-flex justify-content-center" style="padding-top: 2em;">
+        <input type="submit" class="btn btn-success" name="addOperators" value="Submit"> 
+    </div>
         <?php }else{ ?>
             </div>
             <div class="col-lg-12  d-flex justify-content-center" style="padding-top: 2em;">
@@ -108,6 +116,7 @@ include "includes/footer.php";
 if(isset($_POST['addOperators'])){
     $fname = $_POST['first_name'];
     $lname = $_POST['last_name'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
     $dept = $_POST['dept'];
     $dateCreated = date_default_timezone_set('Asia/Manila');

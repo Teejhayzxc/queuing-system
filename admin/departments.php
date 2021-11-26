@@ -31,7 +31,6 @@ include "includes/header.php";
     <?php }else{
         echo "No departments added yet";
     } ?>
-   
     </div>
 <div class="container">
     <form action="#" method="POST" class="needs-validation" novalidate>
