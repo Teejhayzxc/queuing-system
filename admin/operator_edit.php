@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require "../connection.php";
+require "../config/connection.php";
 if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     header("Location:admin_login.php");
     exit();

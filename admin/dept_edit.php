@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../connection.php";
+include "../config/connection.php";
 if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     header("Location:admin_login.php");
     exit();
@@ -41,7 +41,8 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
 <?php 
     if(isset($_POST['submit'])) {
         $dept = $_POST['deptname'];
-        $deptUpdate = date("dd-mm-yyyy h:i:s");
+        $deptUpdate = date_default_timezone_set('Asia/Manila');
+        $deptUpdate = Date("y-m-d h:i:s");
 
         if(empty($dept)){
             echo "Must fill this field";

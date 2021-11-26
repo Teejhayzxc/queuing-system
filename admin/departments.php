@@ -1,67 +1,56 @@
 <?php 
-session_start();
-include "../connection.php";
-if(empty($_SESSION['username']) && empty($_SESSION['password'])){
-    header("Location:admin_login.php");
-    exit();
-}
+include "includes/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <title>Document</title>
-</head>
-<body>
-<a href="admin.php">Back</a>
 <div class="container">
+    <div class="container-fluid" style="padding-top:10em; overflow:auto;">
     <?php 
     $sql = "SELECT * FROM department";
     $query = mysqli_query($conn, $sql);
     if(mysqli_num_rows($query) > 0){ ?>
     <table class="table table-hover text-center">
-        <thead class="bg-dark text-white">
-            <tr>
-                <th>Department</th>
-                <th>Date Added</th>
-                <th>Date Updated</th>
-                <th colspan="2">Actions</th>
-            </tr>
-        </thead>
-        <?php while($row = mysqli_fetch_array($query)){ ?>
-        <tbody>
-            <tr>
-                <td><?php echo $row['departments'] ?></td>  
-                <td><?php echo $row['datetime_created'] ?></td>  
-                <td><?php echo $row['datetime_updated'] ?></td>  
-                <td><a class="btn btn-success" href="dept_edit.php?edit=<?php echo $row['id']?>">Edit</a>
-                <a class="btn btn-danger" href="departments.php?delete=<?php echo $row['id']?>">Delete</a></td>  
-            </tr>
-            <?php }?>
-        </tbody>
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Department</th>
+            <th>Date Added</th>
+            <th>Date Updated</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <?php while($row = mysqli_fetch_array($query)){ ?>
+    <tbody>
+        <tr>
+            <td><?php echo $row['departments'] ?></td>  
+            <td><?php echo $row['datetime_created'] ?></td>  
+            <td><?php echo $row['datetime_updated'] ?></td>  
+            <td><a class="btn btn-success" href="dept_edit.php?edit=<?php echo $row['id']?>">Edit</a>
+            <a class="btn btn-danger" href="departments.php?delete=<?php echo $row['id']?>">Delete</a></td>  
+        </tr>
+        <?php }?>
+    </tbody>
     <?php } ?>
-</table>
-<br>
-<br>
-<br>
-<br>
-<form action="#" method="POST">
-    <label for="">Enter a department name : </label> <br>
-    <input type="text" name="deptname">
-    <input type="submit" name="adddept" value="Add">
-</form>
+    </table>
+    </div>
+<div class="container">
+    <form action="#" method="POST" class="needs-validation" novalidate>
+        <label for="validationCustom05" class="form-label">Enter a department :</label>
+        <input type="text" name="deptname" class="form-control form-control-sm w-25" id="validationCustom05" required>
+        <div class="invalid-feedback">
+            The field is empty.
+        </div>
+        <input type="submit" class="btn btn-success" name="addDept" value="Add">
+    </form>
+
 </div>
-</body>
-</html>
+</div>
+<?php
+include "includes/footer.php";
+?>
 
 <?php
-if(isset($_POST['adddept'])){
+if(isset($_POST['addDept'])){
     $deptname = $_POST['deptname'];
-    $dateCreated = date("dd-mm-yyyy h:i:s");
+    $dateCreated = date_default_timezone_set('Asia/Manila');
+    $dateCreated = date("y-m-d h:i:s");
 
     $insert = "INSERT INTO department (departments, datetime_created) VALUES ('$deptname', '$dateCreated')";
     if(mysqli_query($conn, $insert)){

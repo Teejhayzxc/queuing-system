@@ -1,5 +1,5 @@
 <?php
-include "connection.php";
+include "config/connection.php";
 session_start();
 
 if (!isset($_SESSION['username']) && isset($_SESSION['password']) && isset($_SESSION['dept_id'])){

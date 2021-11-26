@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../connection.php";
+include "../config/connection.php";
 
 if (isset($_SESSION['username']) && isset($_SESSION['password'])){
     header("location:admin.php");
@@ -36,12 +36,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
     <title>Document</title>
 </head>
-<body style="background-color: rgba(0,0,0,0.6);">
+<body>
   <div class="container" style="display: grid; place-items:center;">
-    <div class="card border border-dark" style="margin-top:10em;">
+    <div class="card border shadow-lg bg-white rounded" style="margin-top:10em;">
       <div class="card-header bg-dark">
         <h1 class="text-white text-center">Admin</h1>
       </div>

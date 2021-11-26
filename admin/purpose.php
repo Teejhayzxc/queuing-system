@@ -1,26 +1,10 @@
 <?php 
-session_start();
-include "../connection.php";
-if(empty($_SESSION['username']) && empty($_SESSION['password'])){
-    header("Location:admin_login.php");
-    exit();
-}
+include "includes/header.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
-    <title>Document</title>
-</head>
-<body>
-    <a href="admin.php">Back</a>
     <div class="container">
+    <div class="container-fluid" style="padding-top:10em; overflow:auto;">
     <?php 
-    $sql = "SELECT purposes.id, purposes.purpose_name, purposes.dept_id,
+    $sql = "SELECT purposes.id, purposes.purpose_name, purposes.dept_id, purposes.datetime_created, purposes.datetime_updated,
     department.departments
     FROM purposes
     LEFT JOIN department ON purposes.dept_id = department.id";
@@ -28,11 +12,12 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     if(mysqli_num_rows($query)>0) {
     ?>
     <table class="table table-hover">
-        <thead class="bg-dark text-white border border-dark">
+        <thead class="bg-dark text-white">
             <tr>
                 <th colspan="2">Purpose</th>
                 <th>Department</th>
-                <th>Department</th>
+                <th>Date Added</th>
+                <th>Date Updated</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -41,7 +26,8 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
                 <tr>
                     <td colspan="2"><?php echo $row['purpose_name']?></td>
                     <td><?php echo $row['departments']?></td>
-                    <td><?php echo $row['dept_id']?></td>
+                    <td><?php echo $row['datetime_created']?></td>
+                    <td><?php echo $row['datetime_updated']?></td>
                     <td class="text-center"><a class="btn btn-success" href="purpose_edit.php?edit=<?php echo $row['id']?>">Edit</a>
                     <a class="btn btn-danger" href="purpose.php?delete=<?php echo $row['id']?>">Delete</a></td>
                 </tr>
@@ -49,36 +35,39 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
             </tbody>
         <?php } ?> 
     </table>
-<br>
-<br>
-<br>
+    </div>
 <form action="" method="POST"> 
     <label for="">Enter a Purpose name : </label> <br>
     <input type="text" name="purpose">
+    <select name="dept">
+    <option value="">Select Department</option>
     <?php 
     $sql_department = "SELECT * FROM department";
     $query_department = mysqli_query($conn, $sql_department);
     if(mysqli_num_rows($query_department)>0) { ?>
-    <select name="dept">
-    <option value="">Select Department</option>
     <?php while($row1 = mysqli_fetch_array($query_department)){ ?> 
     <option value="<?php echo $row1['id']?>"><?php echo $row1['departments'] ?></option>
     <?php } ?>
     </select>
+
     <?php }?> 
-    <br>
+
     <input type="submit" name="addpurpose" value="Add">
 </form>
+
 </div>
-</body>
-</html>
+<?php
+include "includes/footer.php";
+?>
 
 <?php 
 if(isset($_POST['addpurpose'])){ 
     $purpose = $_POST['purpose'];
     $dept = $_POST['dept'];
+    $dateCreated = date_default_timezone_set('Asia/Manila');
+    $dateCreated = date("y-m-d h:i:s");
 
-    $insert = "INSERT INTO purposes (purpose_name, dept_id) VALUES ('$purpose', '$dept')";
+    $insert = "INSERT INTO purposes (purpose_name, dept_id, datetime_created) VALUES ('$purpose', '$dept', '$dateCreated')";
     if(mysqli_query($conn, $insert)){
         header('location:purpose.php');
     }else{

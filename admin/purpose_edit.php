@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../connection.php";
+include "../config/connection.php";
 if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     header("Location:admin_login.php");
     exit();
@@ -28,12 +28,12 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
                 <form action="" method="POST"> 
                     <label for="">Enter a Purpose name : </label> <br>
                         <input type="text" name="purpose" value="<?php echo $row['purpose_name'] ?>"><br>
+                    <select name="dept">
+                    <option value="">Select Department</option>
                 <?php 
                     $sql_department = "SELECT * FROM department";
                     $query_department = mysqli_query($conn, $sql_department);
                         if(mysqli_num_rows($query_department)>0) { ?>
-                        <select name="dept">
-                            <option value="">Select Department</option>
                         <?php while($row1 = mysqli_fetch_array($query_department)){ ?> 
                         <option value="<?php echo $row1['id']?>"><?php echo $row1['departments'] ?></option>
                         <?php } ?>
@@ -54,12 +54,14 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     if(isset($_POST['submit'])) {
         $purpose = $_POST['purpose'];
         $dept = $_POST['dept'];
-    
+        $deptUpdate = date_default_timezone_set('Asia/Manila');
+        $deptUpdate = Date("y-m-d h:i:s");
+
         if(empty($purpose) || empty($dept)){
             echo "Must fill this field";
             exit();
         }else{
-            $update = "UPDATE purposes SET purpose_name = '$purpose', dept_id = '$dept' WHERE id = $id";
+            $update = "UPDATE purposes SET purpose_name = '$purpose', dept_id = '$dept', datetime_updated = '$deptUpdate' WHERE id = $id";
             $query = mysqli_query($conn, $update);
             
             if($query){

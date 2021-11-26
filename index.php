@@ -1,6 +1,9 @@
 <?php
-include "connection.php"; 
-
+include "config/connection.php"; 
+if(!empty($_SESSION['username']) && empty($_SESSION['password'])){
+  header("Location: operator_home.php");
+  exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +12,7 @@ include "connection.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <script>window.history.forward();</script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Document</title>
@@ -26,7 +29,7 @@ include "connection.php";
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body"> 
-          <div class="container p-lg-5">
+          <div class="container p-lg-4">
           <form action="operator_login.php" method="POST">
             <div class="form-group row">
             <div class="col-lg-12">
@@ -43,7 +46,7 @@ include "connection.php";
                 $sql = "SELECT * FROM department";
                 $query = mysqli_query($conn, $sql);
                 if(mysqli_num_rows($query)>0) { ?>
-                <select class="form-select mb-5" name="dept_id">
+                <select class="form-select" name="dept_id">
                     <option value="">Select departments</option>
                 <?php 
                 while($row = mysqli_fetch_array($query)){
@@ -54,9 +57,16 @@ include "connection.php";
                 </select>
                 <?php }?> 
               </div> 
-              </div>
-              <span class="text-center">
-              <input type="submit" class="btn btn-outline-success" name="login">
+              </div>      
+              <span class="d-flex justify-content-center mt-5">
+                <div class="row text-center">
+                  <div class="col-12">
+                    <input type="submit" class="btn btn-outline-success w-75" name="login">
+                  </div>
+                  <div class="col-12">
+                    <a class="text-dark" href="./admin/admin_login.php">Sign-in as Admin</a>
+                  </div>
+                </div>
               </span>
           </form>
           </div> 
@@ -76,7 +86,7 @@ include "connection.php";
 </nav>
 <div class="container-xxl py-sm-3 bg-white">
   <span style="display: grid; place-items:center; padding:2em;">
-    <img src="./images/um.png" alt="UMLOGO">
+    <img src="./assets/images/um.png" alt="UMLOGO">
   </span>
 <?php
     $query = "SELECT * FROM purposes";
@@ -121,15 +131,15 @@ include "connection.php";
       </div>
       <hr class="featurette-divider">
       <div class="col-lg-12 text-center" style="padding:2em;">
-          <p class="p-0 m-0" style="font-size:14px; font-family:var(--poppins); font-weight:500;">Copyright © 2021 </p>
-          <p class="p-0 m-0" style="font-size:14px; font-family:var(--poppins); font-weight:500;">The University of Manila</p>
-          <p class="p-0 m-0" style="font-size:14px; font-family:var(--poppins); font-weight:500;">All Rights Reserved</p>
+          <p class="p-0 m-0" style="font-size:14px; font-family:var(--poppins); font-weight:600; letter-spacing:2px;">Copyright © 2021 </p>
+          <p class="p-0 m-0" style="font-size:14px; font-family:var(--poppins); font-weight:600; letter-spacing:2px;">The University of Manila</p>
+          <p class="p-0 m-0" style="font-size:14px; font-family:var(--poppins); font-weight:600; letter-spacing:2px;">All Rights Reserved</p>
       </div>
     </div>
     
   </div>
 </div>
-<script src="js/bootstrap.js"></script>
+<script src="./assets/js/bootstrap.js"></script>
 </body>
 </html>
 
@@ -139,7 +149,9 @@ include "connection.php";
     $remarks = $_POST['remarks'];
     $status = $_POST['status'];
 
-    $insert = "INSERT INTO queuenumber (purpose_id, queue_status, remarks) VALUE ('$purpose','$status', '$remarks')"; 
+    $dateCreated = date('Ymd');
+
+    $insert = "INSERT INTO queuenumber (purpose_id, queue_status, date_created, remarks) VALUE ('$purpose','$status', '$dateCreated', '$remarks')"; 
     
     if(empty($purpose)){
       echo "<script>swal({
