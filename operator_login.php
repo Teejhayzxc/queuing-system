@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
 <?php
 include "config/connection.php";
 session_start();
@@ -9,20 +19,7 @@ if (!isset($_SESSION['username']) && isset($_SESSION['password']) && isset($_SES
     $username = $_POST['username'];
     $password = $_POST['password'];
     $dept = $_POST['dept_id'];
-    
-    if(empty($_POST['username']) && empty($_POST['password'])){
-      echo "please input username & password";
-    }
-    else if(empty($_POST['username'])){
-      echo "please input username";
-    }
-    else if(empty($_POST['password'])){
-      echo "please input password";
-    }
-    else if(empty($_POST['dept_id'])){
-      echo "Tell your department";
-    } else{
-      $sql_users= "SELECT * FROM user WHERE last_name = '$username' AND password = '$password' AND dept_id = $dept";
+      $sql_users= "SELECT * FROM user WHERE username = '$username' AND password = '$password' AND dept_id = $dept";
       $query_users = mysqli_query($conn, $sql_users);
       $result = mysqli_num_rows($query_users);
       if($result == 1){
@@ -32,11 +29,12 @@ if (!isset($_SESSION['username']) && isset($_SESSION['password']) && isset($_SES
         header("location:operator_home.php");
         exit();
       }else{
-        echo "User does not exist";
+        echo "Error";
       }
-    }
   }
 ?>
+</body>
+</html>
 
 
 
