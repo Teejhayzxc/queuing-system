@@ -6,6 +6,7 @@ if(empty($_SESSION['username']) && empty($_SESSION['password'])){
     header("Location:index.php");
     exit();
 }
+
 $user = $_SESSION['username'];
 $dept = $_SESSION['dept_id'];
 ?>
@@ -37,23 +38,28 @@ $dept = $_SESSION['dept_id'];
     <p class="text-muted" style="font-family: var(--poppins); font-weight:600; font-size:2.4em;">Queue List</p>
         <div class="container p-0 m-0">
             <?php
-                $get_queue = "SELECT queuenumber.id, queuenumber.purpose_id, queuenumber.remarks, queuenumber.queue_status,
-                purposes.purpose_name, purposes.dept_id
+                $get_queue = "SELECT queuenumber.id, queuenumber.purpose_id, queuenumber.date_created, queuenumber.remarks, queuenumber.queue_status,
+                purposes.purpose_name, purposes.dept_id,
+                department.departments
                 FROM queuenumber 
                 LEFT JOIN purposes ON purposes.id = queuenumber.purpose_id 
-                WHERE dept_id = $dept AND queuenumber.queue_status = 'Queuing'";
+                LEFT JOIN department ON department.id = purposes.dept_id
+                WHERE dept_id = $dept AND queuenumber.queue_status = 'Queuing'
+                LIMIT 6";
                 $get_num = mysqli_query($conn, $get_queue); ?>
             <ul class="list-group">
             <?php if(mysqli_num_rows($get_num)>0) {
-                while($row = mysqli_fetch_array($get_num)){ ?>
+                while($row = mysqli_fetch_array($get_num)){ 
+                    $id = $row['id'];
+                    $padded_id = str_pad($id, 4, '0', STR_PAD_LEFT);
+                ?>
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-6">
-                            <p><?php echo 'Ticket No. : ' . $row['id']?></p>
-                            <p><?php echo 'Purpose : ' . $row['purpose_name']?></p>
+                        <div class="col-8">
+                            <p><?php echo 'Ticket No. : ' , 'UM-' . $row['departments'] . '-' . $row['date_created'] . '-'. $padded_id ?></p>  
                         </div>
-                        <div class="col-6">
-                            <p><?php echo 'Remark/s : ' . $row['remarks']?> </p>
+                        <div class="col-4">
+                            <p><?php echo 'Purpose : ' . $row['purpose_name']?></p>
                         </div>
                     </div>
                 </li>
@@ -63,7 +69,6 @@ $dept = $_SESSION['dept_id'];
                     echo "Nothing queued yet ";
                 }
                 ?>    
-            </table>
         </div>    
     </div>
     <div class="col-lg-8">
