@@ -99,6 +99,7 @@ $dept = $_SESSION['dept_id'];
             
                 <form action="" method="POST">
                     <p class="h5 text-center mb-5" style="font-size:2.4em;"><?php echo 'UM-' . $row['departments'] . '-' . $row['date_created'] . '-'. $padded_id  ?></p>
+                    <p class="h6 text-center"><?php echo $row['remarks']?></p>
                     <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
                     <input type="hidden" value="Done" name="statusUp">
                     <span class="d-flex justify-content-center">
@@ -109,7 +110,7 @@ $dept = $_SESSION['dept_id'];
             <?php
             }
             }else{
-                echo "<span style='display:grid; place-items:center;'>No Queued yet</span>";
+                echo "<span style='display:grid; place-items:center;'>The queue is empty</span>";
             }
             ?>
         </div>
@@ -119,45 +120,45 @@ $dept = $_SESSION['dept_id'];
         <div class="col-12 p-5">
             <p class="display-6">LAST CALLED NUMBER</p>
             <?php
-                $get_queue = "SELECT queuenumber.id, queuenumber.purpose_id, queuenumber.date_created, queuenumber.remarks, queuenumber.queue_status,
+                $get_queue = "SELECT queuenumber.id, queuenumber.purpose_id, queuenumber.ticket, queuenumber.date_created, queuenumber.remarks, queuenumber.queue_status,
                 purposes.purpose_name, purposes.dept_id
                 FROM queuenumber 
                 LEFT JOIN purposes ON purposes.id = queuenumber.purpose_id 
                 WHERE dept_id = $dept AND queuenumber.queue_status = 'Done'
-                ORDER BY id desc";
+                ORDER BY id desc
+                LIMIT 10";
                 $get_num = mysqli_query($conn, $get_queue); 
             ?>
-            <table class="table border display" id="recentQueue" >
+           
+            <?php if(mysqli_num_rows($get_num)>0) {
+                while($row = mysqli_fetch_array($get_num)){ ?> 
+                <table class="table border display" >
                 <thead class="bg-success text-white">
                     <tr>
-                        <th>ID</th>
                         <th>Purpose</th>
+                        <th>Ticket No.</th>
                         <th>Date Added</th>
                         <th>Remarks</th>
                     </tr>
                 </thead>
-            <?php if(mysqli_num_rows($get_num)>0) {
-                while($row = mysqli_fetch_array($get_num)){ ?>
                 <tbody>
                     <tr >
-                        <td><?php echo $row['id']?></td>
                         <td><?php echo $row['purpose_name']?></td>
+                        <td><?php echo $row['ticket']?></td>
                         <td><?php echo $row['date_created']?></td>
                         <td><?php echo $row['remarks']?> </td>
                     </tr>
                 </tbody>  
-                <?php } }?>    
+                <?php 
+                }}else{
+                  echo "No queued data yet";  
+                }?>    
             </table>
         </div>
     </div>
     </div>
 </div>
 <script src="assets/js/bootstrap.js"></script>
-<script>
-$(document).ready(function() {
-    $('#recentQueue').DataTable();
-} );
-</script>
 </body>
 </html>
 
